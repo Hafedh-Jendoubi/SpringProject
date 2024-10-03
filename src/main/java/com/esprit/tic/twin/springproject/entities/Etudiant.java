@@ -16,6 +16,8 @@ public class Etudiant implements Serializable {
     private String ecole;
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
+    @Enumerated(EnumType.STRING)
+    private TypeEtudiant typeEtudiant;
     @ManyToMany
     private Set<Reservation> reservations;
     @OneToMany(mappedBy = "etudiant")
