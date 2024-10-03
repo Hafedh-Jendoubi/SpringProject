@@ -14,4 +14,8 @@ public class Tache implements Serializable {
     private float tarifHoraire;
     @Enumerated(EnumType.STRING) //This line is used to when I add to the DB, it adds the value string instead of 0 & 1 ...
     private TypeTache typeTache;
+    @ManyToOne
+    Etudiant etudiantOrdinaire;
+    @OneToOne(mappedBy = "tache")
+    private Etudiant etudiantResponsable;
 }
