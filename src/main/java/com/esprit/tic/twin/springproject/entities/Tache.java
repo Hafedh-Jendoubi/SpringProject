@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Tache implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long idTache; //clé primaire
+    private Long idTache; //clé primaire
     private LocalDate dateTache;
     private int duree;
     private float tarifHoraire;

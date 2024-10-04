@@ -9,10 +9,10 @@ import java.util.Set;
 public class Etudiant implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long idEtudiant;
+    private Long idEtudiant;
     private String nomEt;
     private String prenomEt;
-    private long cin;
+    private Long cin;
     private String ecole;
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;

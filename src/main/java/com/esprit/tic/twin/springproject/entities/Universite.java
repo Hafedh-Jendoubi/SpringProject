@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Universite implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long idUniversite;
+    private Long idUniversite;
     private String nomUniversite;
     private String adresse;
     @OneToOne(mappedBy = "universite")
