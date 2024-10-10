@@ -20,7 +20,7 @@ public class Etudiant implements Serializable {
     private TypeEtudiant typeEtudiant;
     @ManyToMany
     private Set<Reservation> reservations;
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiantOrdinaire")
     private Set<Tache> taches;
     @OneToOne
     private Tache tache;
