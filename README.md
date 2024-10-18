@@ -23,8 +23,8 @@ This repository is part of my journey in learning Spring framework.
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/Hafedh-Jendoubi/SpringProject.git
+    cd SpringProject
     ```
 
 2. Open the project in **IntelliJ IDEA**.
