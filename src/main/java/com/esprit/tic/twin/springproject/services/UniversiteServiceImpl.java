@@ -2,9 +2,13 @@ package com.esprit.tic.twin.springproject.services;
 
 import com.esprit.tic.twin.springproject.entities.Universite;
 import com.esprit.tic.twin.springproject.repositories.UniversiteRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@AllArgsConstructor
 public class UniversiteServiceImpl implements IUniversiteService{
     UniversiteRepository universiteRepository;
 
