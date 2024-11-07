@@ -9,4 +9,5 @@ public interface IFoyerService {
     Foyer updateFoyer(Foyer f);
     Foyer retrieveFoyer(Long idFoyer);
     void removeFoyer(Long idFoyer);
+    List<Foyer> retrieveFoyerByNomUniversity(String nomUniversity);
 }

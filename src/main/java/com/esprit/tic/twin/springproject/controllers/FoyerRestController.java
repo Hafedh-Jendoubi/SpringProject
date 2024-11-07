@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/foyer")
 public class FoyerRestController {
     IFoyerService foyerService;
-    FoyerRepository foyerRepository;
 
     @PostMapping("/add-foyer")
     public Foyer addFoyer(@RequestBody Foyer f) {
@@ -27,7 +26,7 @@ public class FoyerRestController {
 
     @GetMapping("/retrieve-by-nomUniversite/{universite-nom}")
     public List<Foyer> getFoyer(@PathVariable("universite-nom") String nomUniversite) {
-        return foyerRepository.findByUniversiteNomUniversite(nomUniversite);
+        return foyerService.retrieveFoyerByNomUniversity(nomUniversite);
     }
 
     @PutMapping("/update-foyer")
