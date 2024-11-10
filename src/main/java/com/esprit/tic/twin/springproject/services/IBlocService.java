@@ -9,4 +9,6 @@ public interface IBlocService {
     Bloc updateBloc(Bloc b);
     Bloc retrieveBloc(Long idBloc);
     void removeBloc(Long idBloc);
+    List<Bloc> retrieveBlocsJPQL(String s);
+    List<Bloc> retrieveBlocsKeywords(String s);
 }
