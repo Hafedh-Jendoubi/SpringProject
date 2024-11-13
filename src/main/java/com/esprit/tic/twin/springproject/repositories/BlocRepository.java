@@ -10,6 +10,8 @@ import java.util.List;
 public interface BlocRepository extends JpaRepository<Bloc, Long> {
     List<Bloc> findByFoyerUniversiteNomUniversite(String s);
 
+    List<Bloc> findByCapaciteBlocAndCapaciteBlocContaining();
+
     @Query("SELECT b FROM Bloc b WHERE b.foyer.universite.nomUniversite = :name")
     List<Bloc> retrieveBlocs(@Param("name") String s);
 }
