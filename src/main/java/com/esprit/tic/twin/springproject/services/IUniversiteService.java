@@ -11,4 +11,5 @@ public interface IUniversiteService {
     Universite retrieveUniversite(Long idUniversite);
     void removeUniversite(Long idUniversite);
     Universite affecterFoyerAUniversite(Long idFoyer, String nomUniversite);
+    Universite desaffecterFoyerAUniversite(Long idFoyer);
 }
