@@ -1,7 +1,9 @@
 package com.esprit.tic.twin.springproject.services;
 
 import com.esprit.tic.twin.springproject.entities.Bloc;
+import com.esprit.tic.twin.springproject.entities.Chambre;
 import com.esprit.tic.twin.springproject.repositories.BlocRepository;
+import com.esprit.tic.twin.springproject.repositories.ChambreRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BlocServiceImpl implements IBlocService{
     BlocRepository blocRepository;
+    ChambreRepository chambreRepository;
     @Override
     public List<Bloc> retrieveAllBlocs() {
         return blocRepository.findAll();
@@ -44,5 +47,19 @@ public class BlocServiceImpl implements IBlocService{
     @Override
     public List<Bloc> retrieveBlocsKeywords(String s) {
         return blocRepository.findByFoyerUniversiteNomUniversite(s);
+    }
+
+    @Override
+    public Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc) {
+        Bloc bloc = blocRepository.findByNomBloc(nomBloc);
+        //That's not good! Bad behaviours.. Posting SQL queries inside a a loop is bad in terms of optimization.
+        numChambre.stream().forEach(
+                numeroChambre -> {
+                    Chambre c = chambreRepository.findByNumeroChambre(numeroChambre);
+                    c.setBloc(bloc);
+                    chambreRepository.save(c);
+                }
+        );
+        return bloc;
     }
 }

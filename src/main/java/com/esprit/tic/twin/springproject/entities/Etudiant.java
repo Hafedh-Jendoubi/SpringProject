@@ -34,4 +34,5 @@ public class Etudiant implements Serializable {
     private Set<Tache> taches;
     @OneToOne
     private Tache tache;
+    private float montantInscription;
 }
