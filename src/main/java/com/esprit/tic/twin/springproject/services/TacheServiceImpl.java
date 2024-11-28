@@ -43,11 +43,13 @@ public class TacheServiceImpl implements ITacheService{
 
     @Override
     public List<Tache> addTasksAndAffectToEtudiant(List<Tache> taches, String nomEt, String prenomEt) {
+        //ME aandi el ha9 na3mel parent.set(child) elaa me ykoun el child mawjoud fel base!! Ken msh mawjoud, na3mlou el save 9bal
         Etudiant etudiant = etudiantRepository.findByNomEtAndPrenomEt(nomEt, prenomEt);
         taches.stream().forEach(tache -> {
             tache.setEtudiantOrdinaire(etudiant);
-            tacheRepository.save(tache);
+            //tacheRepository.save(tache);
         });
+        tacheRepository.saveAll(taches);
         return taches;
     }
 }

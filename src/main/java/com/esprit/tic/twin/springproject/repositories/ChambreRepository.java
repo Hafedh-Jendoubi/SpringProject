@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ChambreRepository extends JpaRepository<Chambre, Long> {
+    List<Chambre> findByBloc_NomBloc(String nomBloc);
     List<Chambre> findByBlocNomBlocAndTypeC(String s, TypeChambre x);
     List<Chambre> findByReservationsEstValide(Boolean x);
     List<Chambre> findByBlocCapaciteBlocGreaterThanAndBlocNomBloc(Long x, String nom);
@@ -23,4 +24,10 @@ public interface ChambreRepository extends JpaRepository<Chambre, Long> {
 
     @Query("SELECT c FROM Chambre c WHERE c.bloc.capaciteBloc > :capaciteBloc AND c.bloc.nomBloc = :nomBloc")
     List<Chambre> retreiveChambres(@Param("capaciteBloc") Long x, @Param("nomBloc") String nom);
+
+    @Query("SELECT count(c) FROM Chambre c WHERE c.typeC = :type AND c.bloc.idBloc = :idBloc")
+    long nbChambreParTypeEtBloc(@Param("type") TypeChambre type, @Param("idBloc") long idBloc);
+
+    @Query("SELECT count(c) FROM Chambre c WHERE c.typeC = :type")
+    int nbTypeChambre(@Param("type") TypeChambre type);
 }
