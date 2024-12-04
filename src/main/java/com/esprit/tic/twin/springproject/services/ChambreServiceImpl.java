@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -52,12 +53,27 @@ public class ChambreServiceImpl implements IChambreService{
         return chambreRepository.nbChambreParTypeEtBloc(type, idBloc);
     }
 
-    @Scheduled(fixedRate = 60000)
+    /* =================== Developed by me and works after I added (double) in front of nbTotalsChambres ====================  */
+    /*@Scheduled(fixedRate = 3000)
     void pourcentageChambreParTypeChambre() {
         int nbTotalsChambres = chambreRepository.findAll().size();
         log.info("nbTotalsChambres : " + nbTotalsChambres);
-        log.info("le pourcentage des chambres pour le type SIMPLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.SIMPLE) / nbTotalsChambres) * 100);
-        log.info("le pourcentage des chambres pour le type DOUBLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.DOUBLE) / nbTotalsChambres) * 100);
-        log.info("le pourcentage des chambres pour le type TRIPLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.TRIPLE) / nbTotalsChambres) * 100);
+        log.info("le pourcentage des chambres pour le type SIMPLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.SIMPLE) / (double) nbTotalsChambres) * 100);
+        log.info("le pourcentage des chambres pour le type DOUBLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.DOUBLE) / (double) nbTotalsChambres) * 100);
+        log.info("le pourcentage des chambres pour le type TRIPLE est égale à " + (chambreRepository.nbTypeChambre(TypeChambre.TRIPLE) / (double) nbTotalsChambres) * 100);
+    }*/
+    /* ====================================================================================================================== */
+
+    @Scheduled(fixedRate = 60000)
+    void pourcentageChambreParTypeChambre() {
+        Integer nbTotalsChambres = chambreRepository.findAll().size();
+        log.info("nbTotalsChambres : " + nbTotalsChambres);
+        Arrays.stream(TypeChambre.values()).forEach(
+                typeChambre -> {
+                    Integer nbChambresParType = chambreRepository.nbTypeChambre(typeChambre);
+                    Double pourcentageParType = (nbChambresParType.doubleValue() / nbTotalsChambres.doubleValue()) * 100;
+                    log.info("le pourcentage des chambres pour le type " + typeChambre + " est égale à " + pourcentageParType);
+                }
+        );
     }
 }
