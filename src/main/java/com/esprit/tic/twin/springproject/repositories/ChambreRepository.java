@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ChambreRepository extends JpaRepository<Chambre, Long> {
+    Chambre findByIdChambre(Long idChambre);
     List<Chambre> findByBloc_NomBloc(String nomBloc);
     List<Chambre> findByBlocNomBlocAndTypeC(String s, TypeChambre x);
     List<Chambre> findByReservationsEstValide(Boolean x);

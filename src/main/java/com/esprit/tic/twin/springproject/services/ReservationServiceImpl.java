@@ -1,6 +1,8 @@
 package com.esprit.tic.twin.springproject.services;
 
+import com.esprit.tic.twin.springproject.entities.Chambre;
 import com.esprit.tic.twin.springproject.entities.Reservation;
+import com.esprit.tic.twin.springproject.repositories.ChambreRepository;
 import com.esprit.tic.twin.springproject.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReservationServiceImpl implements IReservationService {
     ReservationRepository reservationRepository;
+    ChambreRepository chambreRepository;
 
     @Override
     public List<Reservation> retrieveAllReservations() {
@@ -36,6 +39,17 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public void removeReservation(String idReservation) {
         reservationRepository.deleteById(idReservation);
+    }
+
+    @Override
+    public Reservation affecterReservationAChambre(String idReservation, Long idChambre) {
+        Reservation reservation = reservationRepository.findByIdReservation(idReservation);
+        Chambre chambre = chambreRepository.findByIdChambre(idChambre);
+
+        chambre.getReservations().add(reservation);
+        chambreRepository.save(chambre);
+
+        return null;
     }
 
     @Override

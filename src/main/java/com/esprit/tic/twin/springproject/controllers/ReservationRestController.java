@@ -3,7 +3,6 @@ package com.esprit.tic.twin.springproject.controllers;
 import com.esprit.tic.twin.springproject.entities.Reservation;
 import com.esprit.tic.twin.springproject.services.IReservationService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,6 +22,11 @@ public class ReservationRestController {
     @DeleteMapping("/remove-reservation/{id-reservation}")
     public void removeReservation(@PathVariable("id-reservation") String idReservation) {
         reservationService.removeReservation(idReservation);
+    }
+
+    @PostMapping("/affecterReservationAChambre/{idReservation}/{idChambre}")
+    public Reservation affecterReservation(@PathVariable("idReservation") String idReservation, @PathVariable("idChambre") Long idChambre) {
+        return reservationService.affecterReservationAChambre(idReservation, idChambre);
     }
 
     @GetMapping("/retrieveReservationsBetweenTwoDates/{dateDebut}/{dateFin}")
