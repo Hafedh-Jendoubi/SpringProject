@@ -12,4 +12,5 @@ public interface IChambreService {
     Chambre retrieveChambre(Long idChambre);
     void removeChambre(Long idChambre);
     List<Chambre> getChambresParNomBlocAndTypeChambre(String s, TypeChambre t);
+    long nbChambreParTypeEtBloc(TypeChambre type, long idBloc);
 }

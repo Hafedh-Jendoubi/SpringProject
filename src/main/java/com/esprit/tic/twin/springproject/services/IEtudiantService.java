@@ -12,5 +12,5 @@ public interface IEtudiantService {
     Etudiant retrieveEtudiant(Long idEtudiant);
     void removeEtudiant(Long idEtudiant);
     Etudiant affecterEtudiantAReservation(String nomEt, String prenomEt, String idReservation);
-    HashMap<String, Float> calculNouveauMontantInscriptionDesEtudiants(String nomEt, String prenomEt);
+    HashMap<String, Float> calculNouveauMontantInscriptionDesEtudiants();
 }

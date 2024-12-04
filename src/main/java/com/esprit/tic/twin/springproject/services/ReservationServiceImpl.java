@@ -5,6 +5,7 @@ import com.esprit.tic.twin.springproject.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -35,5 +36,10 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public void removeReservation(String idReservation) {
         reservationRepository.deleteById(idReservation);
+    }
+
+    @Override
+    public List<Reservation> getReservationParAnneeUniversitaire(LocalDate dateDebut, LocalDate dateFin) {
+        return reservationRepository.getReservationParAnneeUniversitaire(dateDebut, dateFin);
     }
 }

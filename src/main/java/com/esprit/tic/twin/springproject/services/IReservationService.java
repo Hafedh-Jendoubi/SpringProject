@@ -11,5 +11,5 @@ public interface IReservationService {
     Reservation updateReservation(Reservation r);
     Reservation retrieveReservation(String idReservation);
     void removeReservation(String idReservation);
-    //List<Reservation> getReservationParAnneeUniversitaire(LocalDate dateDebut, LocalDate dataFin);
+    List<Reservation> getReservationParAnneeUniversitaire(LocalDate dateDebut, LocalDate dateFin);
 }

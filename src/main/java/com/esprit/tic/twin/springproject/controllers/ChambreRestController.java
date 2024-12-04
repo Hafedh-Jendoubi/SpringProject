@@ -4,6 +4,7 @@ import com.esprit.tic.twin.springproject.entities.Chambre;
 import com.esprit.tic.twin.springproject.entities.TypeChambre;
 import com.esprit.tic.twin.springproject.services.IChambreService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,10 @@ public class ChambreRestController {
     @GetMapping("/retrieve-blocs-keywords/{nom-bloc}/{type-chambre}")
     public List<Chambre> retrieveBlocsByNameAndTypeChambre(@PathVariable("nom-bloc") String s, @PathVariable("type-chambre") TypeChambre t) {
         return chambreService.getChambresParNomBlocAndTypeChambre(s, t);
+    }
+
+    @GetMapping("/nbChambreParTypeEtBloc/{type}/{idBloc}")
+    public long nbChambreParTypeEtBloc(@PathVariable("type") TypeChambre type, @PathVariable("idBloc") long idBloc) {
+        return chambreService.nbChambreParTypeEtBloc(type, idBloc);
     }
 }

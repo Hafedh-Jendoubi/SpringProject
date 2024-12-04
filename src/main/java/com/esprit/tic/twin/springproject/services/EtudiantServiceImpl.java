@@ -5,9 +5,11 @@ import com.esprit.tic.twin.springproject.entities.Reservation;
 import com.esprit.tic.twin.springproject.entities.Tache;
 import com.esprit.tic.twin.springproject.repositories.EtudiantRepository;
 import com.esprit.tic.twin.springproject.repositories.ReservationRepository;
+import com.esprit.tic.twin.springproject.repositories.TacheRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -15,6 +17,7 @@ import java.util.*;
 public class EtudiantServiceImpl implements IEtudiantService{
     EtudiantRepository etudiantRepository;
     ReservationRepository reservationRepository;
+    TacheRepository tacheRepository;
 
     @Override
     public List<Etudiant> retrieveAllEtudiants() {
@@ -60,20 +63,22 @@ public class EtudiantServiceImpl implements IEtudiantService{
     }
 
     @Override
-    public HashMap<String, Float> calculNouveauMontantInscriptionDesEtudiants(String nomEt, String prenomEt) {
-        Etudiant etudiant = etudiantRepository.findByNomEtAndPrenomEt(nomEt, prenomEt);
+    public HashMap<String, Float> calculNouveauMontantInscriptionDesEtudiants() {
+        HashMap<String, Float> nouveauxMontantsInscription = new HashMap<>();
 
-        Set<Tache> taches = etudiant.getTaches();
-        float nouveauMontant = 0;
+        etudiantRepository.findAll().forEach(etudiant -> {
+            Float ancienMontant = etudiant.getMontantInscription();
+            LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+            LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 12, 31);
+            Float montantTachesAssignesAnneeEnCours = tacheRepository.sommeTacheAnneeEncours(startDate, endDate, etudiant.getIdEtudiant());
+            Float nouveauMontant = ancienMontant;
+            if (montantTachesAssignesAnneeEnCours!=null) {
+                nouveauMontant = ancienMontant - montantTachesAssignesAnneeEnCours;
+            }
+            nouveauxMontantsInscription.put(etudiant.getNomEt() + " " + etudiant.getPrenomEt(), nouveauMontant);
+        });
 
-        for (Tache tache : taches) {
-            nouveauMontant += tache.getDuree() * tache.getTarifHoraire();
-        }
-
-        HashMap<String, Float> result = new HashMap<>();
-        result.put(nomEt + " " + prenomEt, nouveauMontant);
-
-        return result;
+        return nouveauxMontantsInscription;
     }
 
 

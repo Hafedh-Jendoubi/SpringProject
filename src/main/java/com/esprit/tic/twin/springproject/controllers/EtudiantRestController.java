@@ -34,8 +34,8 @@ public class EtudiantRestController {
         etudiantService.affecterEtudiantAReservation(nomEt, prenomEt, idReservation);
     }
 
-    @GetMapping("/calcul-montant/{etudiant-nom}/{etudiant-prenom}")
-    public HashMap<String, Float> calculNouveauMontant(@PathVariable("etudiant-nom") String nomEt, @PathVariable("etudiant-prenom") String prenomEt) {
-        return etudiantService.calculNouveauMontantInscriptionDesEtudiants(nomEt, prenomEt);
+    @GetMapping("/calcul-montant")
+    public HashMap<String, Float> calculNouveauMontant() {
+        return etudiantService.calculNouveauMontantInscriptionDesEtudiants();
     }
 }

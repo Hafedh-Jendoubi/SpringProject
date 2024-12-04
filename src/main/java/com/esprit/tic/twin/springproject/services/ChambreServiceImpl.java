@@ -47,6 +47,11 @@ public class ChambreServiceImpl implements IChambreService{
         return chambreRepository.findByBlocNomBlocAndTypeC(s, t);
     }
 
+    @Override
+    public long nbChambreParTypeEtBloc(TypeChambre type, long idBloc) {
+        return chambreRepository.nbChambreParTypeEtBloc(type, idBloc);
+    }
+
     @Scheduled(fixedRate = 60000)
     void pourcentageChambreParTypeChambre() {
         int nbTotalsChambres = chambreRepository.findAll().size();
