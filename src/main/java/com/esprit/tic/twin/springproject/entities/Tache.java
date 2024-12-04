@@ -1,5 +1,6 @@
 package com.esprit.tic.twin.springproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -13,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@EqualsAndHashCode
 @ToString
 public class Tache implements Serializable {
     @Id
@@ -25,7 +25,9 @@ public class Tache implements Serializable {
     @Enumerated(EnumType.STRING) //This line is used to when I add to the DB, it adds the value string instead of 0 & 1 ...
     private TypeTache typeTache;
     @ManyToOne
+    @JsonIgnore
     Etudiant etudiantOrdinaire;
     @OneToOne(mappedBy = "tache")
+    @JsonIgnore
     private Etudiant etudiantResponsable;
 }

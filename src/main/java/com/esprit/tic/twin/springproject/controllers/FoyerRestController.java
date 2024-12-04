@@ -18,6 +18,11 @@ public class FoyerRestController {
         return foyerService.addFoyer(f);
     }
 
+    @PostMapping("/add-foyer-with-blocs")
+    public Foyer addFoyerWithBloc(@RequestBody Foyer f) {
+        return foyerService.addFoyerWithBloc(f);
+    }
+
     @GetMapping("/retrieve-all-foyers")
     public List<Foyer> getFoyers() {
         return foyerService.retrieveAllFoyers();

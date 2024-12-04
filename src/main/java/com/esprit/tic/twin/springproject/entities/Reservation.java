@@ -1,5 +1,6 @@
 package com.esprit.tic.twin.springproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,5 +24,6 @@ public class Reservation implements Serializable {
     private Date anneeUniversitaire;
     private boolean estValide;
     @ManyToMany(mappedBy = "reservations")
+    @JsonIgnore
     private Set<Etudiant> etudiants;
 }

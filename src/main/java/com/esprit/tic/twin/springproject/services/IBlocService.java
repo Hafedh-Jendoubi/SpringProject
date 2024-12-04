@@ -11,6 +11,5 @@ public interface IBlocService {
     void removeBloc(Long idBloc);
     List<Bloc> retrieveBlocsJPQL(String s);
     List<Bloc> retrieveBlocsKeywords(String s);
-
     Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc);
 }

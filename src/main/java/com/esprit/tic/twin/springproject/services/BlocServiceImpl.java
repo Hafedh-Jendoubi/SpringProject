@@ -56,7 +56,7 @@ public class BlocServiceImpl implements IBlocService{
     @Override
     public Bloc affecterChambresABloc(List<Long> numChambre, String nomBloc) {
         Bloc bloc = blocRepository.findByNomBloc(nomBloc);
-        //That's not good! Bad behaviours.. Posting SQL queries inside a a loop is bad in terms of optimization.
+        //That's not good! Bad behaviours.. Posting SQL queries inside a loop is bad in terms of optimization.
         numChambre.stream().forEach(
                 numeroChambre -> {
                     Chambre c = chambreRepository.findByNumeroChambre(numeroChambre);

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -16,6 +17,11 @@ public class EtudiantRestController {
     @PostMapping("/add-etudiant")
     public Etudiant addEtudiant(@RequestBody Etudiant e) {
         return etudiantService.addEtudiant(e);
+    }
+
+    @GetMapping("/retrieve-all-etudiants")
+    public List<Etudiant> getEtudiants() {
+        return etudiantService.retrieveAllEtudiants();
     }
 
     @DeleteMapping("/remove-etudiant/{etudiant-id}")
