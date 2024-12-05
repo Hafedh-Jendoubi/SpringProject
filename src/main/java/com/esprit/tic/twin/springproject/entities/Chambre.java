@@ -24,6 +24,6 @@ public class Chambre implements Serializable {
     private TypeChambre typeC;
     @ManyToOne
     Bloc bloc;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 }

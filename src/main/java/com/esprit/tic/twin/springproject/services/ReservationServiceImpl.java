@@ -2,13 +2,17 @@ package com.esprit.tic.twin.springproject.services;
 
 import com.esprit.tic.twin.springproject.entities.Chambre;
 import com.esprit.tic.twin.springproject.entities.Reservation;
+import com.esprit.tic.twin.springproject.entities.TypeChambre;
 import com.esprit.tic.twin.springproject.repositories.ChambreRepository;
 import com.esprit.tic.twin.springproject.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @AllArgsConstructor
@@ -55,5 +59,43 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<Reservation> getReservationParAnneeUniversitaire(LocalDate dateDebut, LocalDate dateFin) {
         return reservationRepository.getReservationParAnneeUniversitaire(dateDebut, dateFin);
+    }
+
+    /*@Scheduled(fixedRate = 60000)
+    public void nbPlacesDisponiblesParChambreAnneeEnCours() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateDebut = LocalDate.of(currentDate.getYear(), 12, 31);
+        LocalDate dateFin = LocalDate.of(currentDate.getYear(), 1, 1);
+        List<Chambre> chambresDisponibles = chambreRepository.findAll();
+        chambresDisponibles.forEach(
+                chambre -> {
+                    AtomicReference<Integer> nbChambresOcupes = new AtomicReference<>(0);
+                    if(chambre.getReservations()!=null) {
+                        Set<Reservation> reservations = chambre.getReservations();
+                        reservations.stream().forEach(
+                                reservation -> {
+                                    if (reservation. && reservation.getAnneeUniversitaire().toInstant().isAfter(dateDebut) && reservation)
+                                        nbChambresOcupes.getAndSet(nbChambresOcupes);
+                                }
+                        );
+                    }
+                    if(chambre.getTypeC().equals(TypeChambre.SIMPLE)) {
+                        log.info("")
+                    }
+                }
+        );
+    }*/
+
+    @Scheduled(fixedRate = 5000)
+    public void nbPlacesDisponibleParChambreAnneeEnCours() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateDebut = LocalDate.of(currentDate.getYear(), 12, 31);
+        LocalDate dateFin = LocalDate.of(currentDate.getYear(), 1, 1);
+        List<Chambre> chambresDisponibles = chambreRepository.findAll();
+        chambresDisponibles.forEach(
+                chambre -> {
+
+                }
+        );
     }
 }
