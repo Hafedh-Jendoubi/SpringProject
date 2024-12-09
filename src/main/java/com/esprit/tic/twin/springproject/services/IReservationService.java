@@ -13,4 +13,5 @@ public interface IReservationService {
     void removeReservation(String idReservation);
     Reservation affecterReservationAChambre(String idReservation, Long idChambre);
     List<Reservation> getReservationParAnneeUniversitaire(LocalDate dateDebut, LocalDate dateFin);
+    Reservation ajouterReservationEtAssignerAChambreEtAEtudiant(Reservation res, Long numChambre, Long cin);
 }

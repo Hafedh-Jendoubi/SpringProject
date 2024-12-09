@@ -1,15 +1,19 @@
 package com.esprit.tic.twin.springproject.services;
 
 import com.esprit.tic.twin.springproject.entities.Chambre;
+import com.esprit.tic.twin.springproject.entities.Etudiant;
 import com.esprit.tic.twin.springproject.entities.Reservation;
 import com.esprit.tic.twin.springproject.entities.TypeChambre;
 import com.esprit.tic.twin.springproject.repositories.ChambreRepository;
+import com.esprit.tic.twin.springproject.repositories.EtudiantRepository;
 import com.esprit.tic.twin.springproject.repositories.ReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,6 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ReservationServiceImpl implements IReservationService {
     ReservationRepository reservationRepository;
     ChambreRepository chambreRepository;
+    EtudiantRepository etudiantRepository;
 
     @Override
     public List<Reservation> retrieveAllReservations() {
@@ -85,6 +90,33 @@ public class ReservationServiceImpl implements IReservationService {
                 }
         );
     }*/
+
+    @Override
+    public Reservation ajouterReservationEtAssignerAChambreEtAEtudiant(Reservation res, Long numChambre, Long cin) {
+        Chambre chambre = chambreRepository.findByNumeroChambre(numChambre);
+        Etudiant etudiant = etudiantRepository.findByCin(cin);
+        res.setIdReservation(chambre.getNumeroChambre() + cin.toString() + LocalDate.now().getYear());
+
+        /* La condition */
+
+        LocalDate startDate = LocalDate.of(LocalDate.now().getYear(), 1, 1);
+        LocalDate endDate = LocalDate.of(LocalDate.now().getYear(), 12, 31);
+
+
+        /* ============ */
+
+        Reservation r = reservationRepository.save(res);
+        chambre.getReservations().add(r);
+        chambreRepository.save(chambre);
+        Set<Reservation> newReservations = new HashSet<>();
+        if(etudiant.getReservations()!=null)
+            newReservations = etudiant.getReservations();
+        newReservations.add(res);
+        etudiant.setReservations(newReservations);
+        etudiantRepository.save(etudiant);
+
+        return res;
+    }
 
     @Scheduled(fixedRate = 5000)
     public void nbPlacesDisponibleParChambreAnneeEnCours() {
